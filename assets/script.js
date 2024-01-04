@@ -50,20 +50,21 @@ function startGame() {
     secondsLeft--;
     timeValue.textContent = secondsLeft
 
-    if(secondsLeft === 0 || currentQuestion > 3) {
+    if(secondsLeft === 0 || currentQuestion >= questions.length || secondsLeft < 0) {
       clearInterval(timerInterval);
       endGame()
     }
 
   }, 1000);
 
-var removePreGame = document.querySelectorAll('.pre-game')
-removePreGame.forEach(function (element) {
+  var removePreGame = document.querySelectorAll('.pre-game')
+  removePreGame.forEach(function (element) {
   element.remove()
 })
 nextQuestion()
 
 function nextQuestion() {
+  if (currentQuestion < questions.length) {
   var questionText = questions[currentQuestion].q
   var pTag = document.createElement('p');
   pTag.textContent = questionText
@@ -81,7 +82,6 @@ function checkAnswer(index) {
   if(questions[currentQuestion].a[index].correct) {
     userScore++
     userValue.textContent = userScore
-    console.log(userScore)
     var clear = document.querySelector(".start");
     clear.innerHTML = ""
     currentQuestion++
@@ -94,7 +94,7 @@ function checkAnswer(index) {
     nextQuestion();
   }
 }
-}}
+}}}
 
 function endGame() {
   var initials = prompt("The game is over! Please enter your initials")
